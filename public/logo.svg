@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" fill="none">
+  <!-- LOOPED wordmark -->
+  <text x="0" y="32" font-family="Arial, sans-serif" font-weight="700" font-size="32" letter-spacing="4" fill="white">L</text>
+  <!-- First O -->
+  <text x="22" y="32" font-family="Arial, sans-serif" font-weight="700" font-size="32" letter-spacing="4" fill="white">O</text>
+  <!-- Second O - broken loop accent -->
+  <circle cx="65" cy="18" r="13" stroke="white" stroke-width="5" fill="none"/>
+  <!-- The broken loop accent stroke on second O -->
+  <path d="M65 5 A13 13 0 1 1 52.5 24" stroke="#7B61FF" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <!-- PED -->
+  <text x="83" y="32" font-family="Arial, sans-serif" font-weight="700" font-size="32" letter-spacing="4" fill="white">PED</text>
+</svg>
