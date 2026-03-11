@@ -21,6 +21,7 @@ export function FeedStackHost({ initialCards, sessionId }: FeedStackHostProps) {
   const [cards, setCards] = useState<GameCard[]>(initialCards);
   const [activeIndex, setActiveIndex] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
+  const [direction, setDirection] = useState<"next" | "prev">("next");
   const [headerVisible, setHeaderVisible] = useState(true);
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [showAuth, setShowAuth] = useState(false);
@@ -78,6 +79,7 @@ export function FeedStackHost({ initialCards, sessionId }: FeedStackHostProps) {
 
   const goToNext = useCallback(() => {
     if (transitioning || activeIndex >= cards.length - 1) return;
+    setDirection("next");
     setTransitioning(true);
     setGamesPlayed((n) => n + 1);
     setTimeout(() => {
@@ -95,6 +97,7 @@ export function FeedStackHost({ initialCards, sessionId }: FeedStackHostProps) {
 
   const goToPrev = useCallback(() => {
     if (transitioning || activeIndex <= 0) return;
+    setDirection("prev");
     setTransitioning(true);
     setTimeout(() => {
       setActiveIndex((i) => i - 1);
@@ -194,18 +197,16 @@ export function FeedStackHost({ initialCards, sessionId }: FeedStackHostProps) {
         {windowCards.map((card, windowIdx) => {
           if (!card) return null;
           const offset = (windowIdx - 1) * 100; // -100%, 0%, +100%
-          const translateY = transitioning
-            ? windowIdx === 0
-              ? `${100 - 100}%`
-              : `${offset}%`
-            : `${offset}%`;
+          // During transition, shift all cards in the swipe direction so they animate
+          const directionShift = transitioning ? (direction === "next" ? -100 : 100) : 0;
+          const translateY = offset + directionShift;
 
           return (
             <div
               key={card.gameId}
               className="absolute inset-0"
               style={{
-                transform: `translateY(${offset}%)`,
+                transform: `translateY(${translateY}%)`,
                 transition: transitioning
                   ? `transform ${TRANSITION_MS}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`
                   : "none",
