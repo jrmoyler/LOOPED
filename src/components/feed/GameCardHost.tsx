@@ -236,7 +236,7 @@ export function GameCardHost({
       )}
 
       {/* Loading state */}
-      {gameState === "loading" && !iframeError && (
+      {gameState === "loading" && !iframeError && buildUrl && (
         <div className="absolute inset-0 flex items-center justify-center bg-[#0B0B0B] pointer-events-none">
           <div className="flex flex-col items-center gap-3">
             <div className="w-10 h-10 rounded-full border-2 border-[#7B61FF] border-t-transparent animate-spin" />
